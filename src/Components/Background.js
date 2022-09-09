@@ -4,9 +4,10 @@ import firebaseApp from "../util/firebase";
 
 // import db from "../utils/firebase";
 
-const Background = () => {
+const Background = ({ currentRace }) => {
   const db = getDatabase(firebaseApp);
-  const [trackList, setTrackList] = useState(undefined);
+  const [trackList, setTrackList] = useState([]);
+
   useEffect(() => {
     const circuitRef = ref(db, "/circuits");
 
@@ -20,11 +21,17 @@ const Background = () => {
       setTrackList(newCircuit);
     });
   }, [db]);
+
   return (
     <div className="absolute top-0 left-0 h-screen w-screen bg-blue-400">
-      <h1>Tracks</h1>
+      <h1>{currentRace?.raceName}</h1>
       {trackList.map((circuit, index) => {
-        return <p key={index}>{circuit.name}</p>;
+        return (
+          <p key={index}>
+            {circuit.name}
+            <img src={circuit.img}></img>
+          </p>
+        );
       })}
     </div>
   );

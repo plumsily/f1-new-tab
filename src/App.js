@@ -1,39 +1,43 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
+import moment from "moment";
 import "./App.css";
 
 import Background from "./Components/Background";
 
 function App() {
-  // const [schedule,setSchedule] = useState<any>();
+  const [schedule, setSchedule] = useState([]);
+  const [currentRace, setCurrentRace] = useState([]);
+  const [currentDate, setCurrentDate] = useState("");
 
-  // useEffect(()=>{
-  //   updateSchedule();
-  // },[]);
+  const updateSchedule = async () => {
+    try {
+      const response = await fetch("http://ergast.com/api/f1/current.json");
+      const result = await response.json();
+      setSchedule(result);
+    } catch (error) {
+      console.log(error);
+      setSchedule({ content: "Something went wrong" });
+    }
+  };
 
-  // const updateSchedule = async() => {
-  //   const requestOptions = {
-  //     method: 'GET',
-  //     redirect: 'follow'
-  //   };
-  //   const convert = require('xml2js');
-  //   // let xml = undefined;
-  //   fetch("http://ergast.com/api/f1/current", {method: 'GET',redirect: 'follow'})
-  //     .then(response => response.text())
-  //     .then(result => {
-  //       convert.parseString(result,(err:any,res:any)=>{
-  //         if(err){
-  //           throw err;
-  //         }
-  //         const json = JSON.stringify(result,null,4);
-  //         setSchedule(json);
-  //       })
-  //     })
-  //     .catch(error => console.log('error', error));
+  useEffect(() => {
+    updateSchedule();
+    setCurrentDate(moment().format("YYYY-MM-DD"));
+  }, []);
+
+  useEffect(() => {
+    setCurrentRace(
+      schedule.MRData?.RaceTable.Races.filter(
+        (race) => currentDate <= race.date
+      )[0]
+    );
+    console.log(currentRace);
+  }, [schedule]);
 
   return (
     <div className="App">
-      <Background />
+      <Background currentRace={currentRace} />
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>
