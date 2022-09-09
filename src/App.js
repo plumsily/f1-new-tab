@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import logo from "./logo.svg";
 import moment from "moment";
+import { getDatabase, ref, onValue } from "firebase/database";
+import firebaseApp from "./util/firebase";
 import "./App.css";
 
 import Background from "./Components/Background";
@@ -9,6 +11,9 @@ function App() {
   const [schedule, setSchedule] = useState([]);
   const [currentRace, setCurrentRace] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
+  const [trackListImgs, setTrackListImgs] = useState([]);
+
+  const db = getDatabase(firebaseApp);
 
   const updateSchedule = async () => {
     try {
@@ -32,12 +37,29 @@ function App() {
         (race) => currentDate <= race.date
       )[0]
     );
-    console.log(currentRace);
   }, [schedule]);
+
+  useEffect(() => {
+    const circuitRef = ref(db, "/circuits");
+
+    onValue(circuitRef, (snapshot) => {
+      const circuit = snapshot.val();
+      const circuitList = [];
+
+      for (let id in circuit) {
+        circuitList.push({ id, ...circuit[id] });
+      }
+      setTrackListImgs(
+        circuitList.filter(
+          (circuits) => currentRace.Circuit?.circuitId === circuits.id
+        )
+      );
+    });
+  }, [trackListImgs]);
 
   return (
     <div className="App">
-      <Background currentRace={currentRace} />
+      <Background currentRace={currentRace} trackListImgs={trackListImgs} />
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
         <p>

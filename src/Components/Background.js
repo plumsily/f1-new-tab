@@ -4,35 +4,36 @@ import firebaseApp from "../util/firebase";
 
 // import db from "../utils/firebase";
 
-const Background = ({ currentRace }) => {
-  const db = getDatabase(firebaseApp);
-  const [trackList, setTrackList] = useState([]);
+const Background = ({ currentRace, trackListImgs }) => {
+  //   const db = getDatabase(firebaseApp);
+  //   const [trackList, setTrackList] = useState([]);
 
-  useEffect(() => {
-    const circuitRef = ref(db, "/circuits");
+  //   useEffect(() => {
+  //     const circuitRef = ref(db, "/circuits");
 
-    onValue(circuitRef, (snapshot) => {
-      const circuit = snapshot.val();
-      const newCircuit = [];
+  //     onValue(circuitRef, (snapshot) => {
+  //       const circuit = snapshot.val();
+  //       const newCircuit = [];
 
-      for (let id in circuit) {
-        newCircuit.push({ id, ...circuit[id] });
-      }
-      setTrackList(newCircuit);
-    });
-  }, [db]);
+  //       for (let id in circuit) {
+  //         newCircuit.push({ id, ...circuit[id] });
+  //       }
+  //       setTrackList(newCircuit);
+  //     });
+  //   }, [db]);
 
   return (
-    <div className="absolute top-0 left-0 h-screen w-screen bg-blue-400">
+    <div className="absolute top-0 left-0 h-screen w-screen">
       <h1>{currentRace?.raceName}</h1>
-      {trackList.map((circuit, index) => {
+      <img src={trackListImgs[0]?.img} className="object-fill"></img>
+      {/* {trackList.map((circuit, index) => {
         return (
           <p key={index}>
             {circuit.name}
             <img src={circuit.img}></img>
           </p>
         );
-      })}
+      })} */}
     </div>
   );
   //   const track = db.collection("circuits").doc("italy");
