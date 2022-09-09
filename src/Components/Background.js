@@ -23,9 +23,14 @@ const Background = ({ currentRace, trackListImgs }) => {
   //   }, [db]);
 
   return (
-    <div className="absolute top-0 left-0 h-screen w-screen">
-      <h1>{currentRace?.raceName}</h1>
-      <img src={trackListImgs[0]?.img} className="object-fill"></img>
+    <div className="relative flex justify-center items-center top-0 left-0 h-screen w-screen">
+      <h1 className="absolute top-12 w-fit mx-auto text-6xl uppercase font-medium">
+        {currentRace?.raceName}
+      </h1>
+      <img
+        className="object-cover h-screen w-screen"
+        src={trackListImgs[0]?.img}
+      ></img>
       {/* {trackList.map((circuit, index) => {
         return (
           <p key={index}>

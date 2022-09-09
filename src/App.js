@@ -51,14 +51,14 @@ function App() {
       }
       setTrackListImgs(
         circuitList.filter(
-          (circuits) => currentRace.Circuit?.circuitId === circuits.id
+          (circuits) => currentRace?.Circuit?.circuitId === circuits.id
         )
       );
     });
-  }, [trackListImgs]);
+  }, [currentRace]);
 
   return (
-    <div className="App">
+    <div className="App flex justify-center">
       <Background currentRace={currentRace} trackListImgs={trackListImgs} />
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
