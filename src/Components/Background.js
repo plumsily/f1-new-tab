@@ -23,10 +23,13 @@ const Background = ({ currentRace, trackListImgs }) => {
   //   }, [db]);
 
   return (
-    <div className="relative flex justify-center items-center top-0 left-0 h-screen w-screen">
-      <h1 className="absolute top-12 w-fit mx-auto text-6xl uppercase font-medium">
+    <div className="relative flex justify-center top-0 left-0 h-screen w-screen">
+      {/* <h1 className="absolute left-5 top-5 text-2xl uppercase font-medium drop-shadow-[0_0_10px_rgba(0,0,0,1)] text-white z-10">
         {currentRace?.raceName}
       </h1>
+      <h2 className="absolute left-5 mt-3 text-xl uppercase font-medium drop-shadow-[0_0_10px_rgba(0,0,0,1)] text-white z-10">
+        {currentRace?.raceName}
+      </h2> */}
       <img
         className="object-cover h-screen w-screen"
         src={trackListImgs[0]?.img}

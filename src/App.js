@@ -6,6 +6,7 @@ import firebaseApp from "./util/firebase";
 import "./App.css";
 
 import Background from "./Components/Background";
+import Name from "./Components/Name";
 
 function App() {
   const [schedule, setSchedule] = useState([]);
@@ -59,6 +60,7 @@ function App() {
 
   return (
     <div className="App flex justify-center">
+      <Name currentRace={currentRace} />
       <Background currentRace={currentRace} trackListImgs={trackListImgs} />
       {/* <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
