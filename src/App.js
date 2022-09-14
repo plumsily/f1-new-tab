@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from "react";
-import logo from "./logo.svg";
 import moment from "moment";
 import { getDatabase, ref, onValue } from "firebase/database";
 import firebaseApp from "./util/firebase";
@@ -7,10 +6,13 @@ import "./App.css";
 
 import Background from "./Components/Background";
 import Name from "./Components/Name";
+import Map from "./Components/Map";
+import Countdown from "./Components/Countdown";
 
 function App() {
   const [schedule, setSchedule] = useState([]);
   const [currentRace, setCurrentRace] = useState([]);
+  const [raceTime, setRaceTime] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
   const [trackListImgs, setTrackListImgs] = useState([]);
 
@@ -29,14 +31,31 @@ function App() {
 
   useEffect(() => {
     updateSchedule();
-    setCurrentDate(moment().format("YYYY-MM-DD"));
+    setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
   }, []);
+
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [currentDate]);
 
   useEffect(() => {
     setCurrentRace(
       schedule.MRData?.RaceTable.Races.filter(
         (race) => currentDate <= race.date
       )[0]
+    );
+    setRaceTime(
+      moment
+        .utc(
+          currentRace?.Qualifying?.date +
+            " " +
+            currentRace?.Qualifying?.time.slice(0, -1)
+        )
+        .local()
+        .format("YYYY-MM-DD, HH:mm:ss")
     );
   }, [schedule]);
 
@@ -59,23 +78,16 @@ function App() {
   }, [currentRace]);
 
   return (
-    <div className="App flex justify-center">
-      <Name currentRace={currentRace} />
+    <div className="App relative grid grid-rows-3 grid-cols-3 h-screen bg-black">
+      {/* <div className="row-start-4 row-end-5 col-start-1 col-end-4 backdrop-blur backdrop-brightness-90 backdrop-grayscale z-10"></div> */}
       <Background currentRace={currentRace} trackListImgs={trackListImgs} />
-      {/* <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header> */}
+      <Name currentRace={currentRace} />
+      <Map currentRace={currentRace} trackListImgs={trackListImgs} />
+      <Countdown
+        currentRace={currentRace}
+        currentDate={currentDate}
+        raceTime={raceTime}
+      />
     </div>
   );
 }

@@ -2,8 +2,15 @@ import React, { useState, useEffect } from "react";
 import { getDatabase, ref, onValue } from "firebase/database";
 import firebaseApp from "../util/firebase";
 
-const Map = () => {
-  return <div></div>;
+const Map = ({ currentRace, trackListImgs }) => {
+  return (
+    <div className="flex justify-self-end self-end row-start-3 row-end-4 col-start-3 col-end-4 z-20 backdrop-brightness-75 backdrop-grayscale-[60%] backdrop-blur h-full w-max mb-4 mr-4 px-4 py-4 rounded-2xl shadow-xl sm:max-w-md lg:max-w-max">
+      <img
+        className="object-contain saturate-[0.7] drop-shadow-[0_0_15px_rgba(250,250,250,0.1)]"
+        src={trackListImgs[0]?.map}
+      ></img>
+    </div>
+  );
 };
 
 export default Map;
