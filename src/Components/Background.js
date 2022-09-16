@@ -6,11 +6,12 @@ import firebaseApp from "../util/firebase";
 
 const Background = ({ currentRace, trackListImgs }) => {
   return (
-    <div className="relative flex justify-center row-start-1 row-end-4 col-start-1 col-end-4 z-0">
+    <div className="relative flex justify-center row-start-1 row-end-4 col-start-1 col-end-5 z-0">
       <img
         className="object-cover h-full w-full"
         src={trackListImgs[0]?.img}
       ></img>
+      <div className="absolute h-screen w-screen top-0 left-0 bg-gradient-to-t from-black/95 "></div>
     </div>
   );
 };

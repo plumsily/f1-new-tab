@@ -5,16 +5,19 @@ import firebaseApp from "./util/firebase";
 import "./App.css";
 
 import Background from "./Components/Background";
-import Name from "./Components/Name";
+import Info from "./Components/Info";
 import Map from "./Components/Map";
 import Countdown from "./Components/Countdown";
 
 function App() {
   const [schedule, setSchedule] = useState([]);
   const [currentRace, setCurrentRace] = useState([]);
+  const [previousRecord, setPreviousRecord] = useState([]);
+  const [previousPit, setPreviousPit] = useState([]);
   const [raceTime, setRaceTime] = useState([]);
   const [currentDate, setCurrentDate] = useState("");
   const [trackListImgs, setTrackListImgs] = useState([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   const db = getDatabase(firebaseApp);
 
@@ -28,6 +31,38 @@ function App() {
       setSchedule({ content: "Something went wrong" });
     }
   };
+  const updateRecord = async () => {
+    try {
+      const response = await fetch(
+        `http://ergast.com/api/f1/circuits/${currentRace?.Circuit?.circuitId}/results/1.json?limit=100`
+      );
+      const result = await response.json();
+      setPreviousRecord(result);
+    } catch (error) {
+      console.log(error);
+      setPreviousRecord({ content: "Something went wrong" });
+    }
+  };
+  const updatePit = async () => {
+    try {
+      const response = await fetch(
+        `http://ergast.com/api/f1/${
+          previousRecord?.MRData?.RaceTable?.Races[
+            previousRecord?.MRData?.total - 1
+          ]?.season
+        }/${
+          previousRecord?.MRData?.RaceTable?.Races[
+            previousRecord?.MRData?.total - 1
+          ]?.round
+        }/pitstops.json?limit=60`
+      );
+      const result = await response.json();
+      setPreviousPit(result);
+    } catch (error) {
+      console.log(error);
+      setPreviousPit({ content: "Something went wrong" });
+    }
+  };
 
   useEffect(() => {
     updateSchedule();
@@ -35,11 +70,22 @@ function App() {
   }, []);
 
   useEffect(() => {
-    const timer = setTimeout(() => {
-      setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [currentDate]);
+    updateRecord();
+  }, [currentRace]);
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => {
+      updatePit();
+    }, 100);
+    const timer2 = setTimeout(() => {
+      setIsLoaded(true);
+    }, 300);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+    // updatePit();
+  }, [previousRecord]);
 
   useEffect(() => {
     setCurrentRace(
@@ -60,6 +106,13 @@ function App() {
   }, [schedule]);
 
   useEffect(() => {
+    const timer = setTimeout(() => {
+      setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
+    }, 1000);
+    return () => clearTimeout(timer);
+  }, [currentDate]);
+
+  useEffect(() => {
     const circuitRef = ref(db, "/circuits");
 
     onValue(circuitRef, (snapshot) => {
@@ -78,10 +131,14 @@ function App() {
   }, [currentRace]);
 
   return (
-    <div className="App relative grid grid-rows-3 grid-cols-3 h-screen bg-black">
-      {/* <div className="row-start-4 row-end-5 col-start-1 col-end-4 backdrop-blur backdrop-brightness-90 backdrop-grayscale z-10"></div> */}
+    <div className="App relative grid grid-rows-3 grid-cols-4 h-screen bg-black">
       <Background currentRace={currentRace} trackListImgs={trackListImgs} />
-      <Name currentRace={currentRace} />
+      <Info
+        currentRace={currentRace}
+        previousRecord={previousRecord}
+        previousPit={previousPit}
+        isLoaded={isLoaded}
+      />
       <Map currentRace={currentRace} trackListImgs={trackListImgs} />
       <Countdown
         currentRace={currentRace}
