@@ -5,8 +5,18 @@ import moment from "moment";
 
 var momentDurationFormatSetup = require("moment-duration-format");
 
-const Countdown = ({ currentRace, currentDate, raceTime }) => {
-  if (currentRace && currentDate && raceTime) {
+const Countdown = ({ currentRace, raceTime }) => {
+  const [realTime, setRealTime] = useState("");
+
+  useEffect(() => {
+    const tick = () => {
+      setRealTime(moment().format("YYYY-MM-DD, HH:mm:ss"));
+    };
+    let int = setInterval(tick, 1000);
+    return () => clearInterval(int);
+  });
+
+  if (currentRace && raceTime) {
     return (
       <div className="flex flex-col justify-self-center self-center items-center row-start-2 row-end-3 col-start-1 col-end-5 py-4 rounded-3xl shadow-xl z-20">
         <h1 className="w-max uppercase font-medium drop-shadow-[0_0_5px_rgba(0,0,0,1)]  text-white z-10 sm:text-lg sm:mb-2 xl:mb-4 xl:text-xl">
@@ -24,7 +34,7 @@ const Countdown = ({ currentRace, currentDate, raceTime }) => {
 
         <div className="text-white font-medium uppercase drop-shadow-[0_0_5px_rgba(0,0,0,1)] sm:text-4xl xl:text-5xl">
           {moment
-            .duration(moment(raceTime).diff(moment(currentDate)))
+            .duration(moment(raceTime).diff(moment(realTime)))
             .format("DD [d] HH [h] mm [m] ss [s]")}
         </div>
       </div>

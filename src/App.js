@@ -69,23 +69,9 @@ function App() {
     setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
   }, []);
 
-  useEffect(() => {
-    updateRecord();
-  }, [currentRace]);
-
-  useEffect(() => {
-    const timer1 = setTimeout(() => {
-      updatePit();
-    }, 100);
-    const timer2 = setTimeout(() => {
-      setIsLoaded(true);
-    }, 300);
-    return () => {
-      clearTimeout(timer1);
-      clearTimeout(timer2);
-    };
-    // updatePit();
-  }, [previousRecord]);
+  // useEffect(() => {
+  //   updateRecord();
+  // }, [currentRace]);
 
   useEffect(() => {
     setCurrentRace(
@@ -93,6 +79,10 @@ function App() {
         (race) => currentDate <= race.date
       )[0]
     );
+  }, [schedule]);
+
+  useEffect(() => {
+    updateRecord();
     setRaceTime(
       moment
         .utc(
@@ -103,16 +93,7 @@ function App() {
         .local()
         .format("YYYY-MM-DD, HH:mm:ss")
     );
-  }, [schedule]);
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
-    }, 1000);
-    return () => clearTimeout(timer);
-  }, [currentDate]);
-
-  useEffect(() => {
     const circuitRef = ref(db, "/circuits");
 
     onValue(circuitRef, (snapshot) => {
@@ -130,9 +111,54 @@ function App() {
     });
   }, [currentRace]);
 
+  // useEffect(() => {
+  //   const tick = () => {
+  //     setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
+  //   };
+  //   let int = setInterval(tick, 1000);
+  //   return () => clearInterval(int);
+
+  //   // const timer = setTimeout(() => {
+  //   //   setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
+  //   // }, 1000);
+  //   // return () => clearTimeout(timer);
+  // });
+
+  useEffect(() => {
+    const timer1 = setTimeout(() => {
+      updatePit();
+    }, 200);
+    const timer2 = setTimeout(() => {
+      setIsLoaded(true);
+    }, 400);
+    return () => {
+      clearTimeout(timer1);
+      clearTimeout(timer2);
+    };
+    // updatePit();
+  }, [previousRecord]);
+
+  // useEffect(() => {
+  //   const circuitRef = ref(db, "/circuits");
+
+  //   onValue(circuitRef, (snapshot) => {
+  //     const circuit = snapshot.val();
+  //     const circuitList = [];
+
+  //     for (let id in circuit) {
+  //       circuitList.push({ id, ...circuit[id] });
+  //     }
+  //     setTrackListImgs(
+  //       circuitList.filter(
+  //         (circuits) => currentRace?.Circuit?.circuitId === circuits.id
+  //       )
+  //     );
+  //   });
+  // }, [currentRace]);
+
   return (
     <div className="App relative grid grid-rows-3 grid-cols-4 h-screen bg-black">
-      <Background currentRace={currentRace} trackListImgs={trackListImgs} />
+      <Background trackListImgs={trackListImgs} />
       <Info
         currentRace={currentRace}
         previousRecord={previousRecord}
@@ -140,11 +166,7 @@ function App() {
         isLoaded={isLoaded}
       />
       <Map currentRace={currentRace} trackListImgs={trackListImgs} />
-      <Countdown
-        currentRace={currentRace}
-        currentDate={currentDate}
-        raceTime={raceTime}
-      />
+      <Countdown currentRace={currentRace} raceTime={raceTime} />
     </div>
   );
 }
