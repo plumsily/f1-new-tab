@@ -1,0 +1,16 @@
+.background-enter, .background-appear{
+    opacity: 0;
+    filter: blur(4px);
+}
+.background-enter-active, .background-appear-active {
+    opacity: 1;
+    filter: blur(0);
+    transition: all 2000ms ease-in-out;
+}
+.background-exit {
+    opacity: 1;
+}
+.background-exit-active {
+    opacity: 0;
+    transition: opacity 2000ms ease-in-out;
+}

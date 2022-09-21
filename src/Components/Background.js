@@ -1,21 +1,24 @@
 import React, { useState, useEffect } from "react";
-import { getDatabase, ref, onValue } from "firebase/database";
-import firebaseApp from "../util/firebase";
+import { CSSTransition } from "react-transition-group";
 
-// import db from "../utils/firebase";
+import "./Background.css";
 
-const Background = ({ trackListImgs }) => {
-  const ranIndex = Math.floor(
-    Math.random() * (trackListImgs[0]?.img.length - 1)
-  );
+const Background = ({ backgroundImg }) => {
+  const img = new Image();
+  img.src = backgroundImg;
   return (
-    <div className="relative flex justify-center row-start-1 row-end-4 col-start-1 col-end-5 z-0">
-      <img
-        className="object-cover h-full w-full"
-        src={trackListImgs[0]?.img[ranIndex]}
-      ></img>
-      <div className="absolute h-screen w-screen top-0 left-0 bg-gradient-to-t from-black/75 "></div>
-    </div>
+    <CSSTransition
+      in={backgroundImg}
+      timeout={2000}
+      classNames="background"
+      appear
+    >
+      <div className="relative flex justify-center row-start-1 row-end-4 col-start-1 col-end-5 z-0">
+        <img className="w-full object-cover" src={backgroundImg}></img>
+        {/* <div className="absolute h-screen w-screen top-0 left-0 bg-blue-500"></div> */}
+        <div className="absolute h-screen w-screen top-0 left-0 bg-gradient-to-t from-black/60 "></div>
+      </div>
+    </CSSTransition>
   );
 };
 

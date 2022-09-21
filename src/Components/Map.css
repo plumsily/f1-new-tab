@@ -1,0 +1,16 @@
+.map-enter, .map-appear {
+    opacity: 0;
+    scale: 0.98;
+}
+.map-enter-active, .map-appear-active {
+    opacity: 1;
+    scale: 1;
+    transition: all 1000ms ease-in-out 1000ms;
+}
+.map-exit {
+    opacity: 1;
+}
+.map-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms ease-in-out;
+}
