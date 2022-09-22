@@ -1,0 +1,16 @@
+.history-enter, .history-appear {
+    opacity: 0;
+    scale: 0.97;
+}
+.history-enter-active, .history-appear-active {
+    opacity: 1;
+    scale: 1;
+    transition: all 1000ms ease-in-out;
+}
+.history-exit {
+    opacity: 1;
+}
+.history-exit-active {
+    opacity: 0;
+    transition: opacity 1000ms ease-in-out;
+}

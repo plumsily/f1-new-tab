@@ -17,9 +17,9 @@ const Countdown = ({ currentRace, raceTime }) => {
     return () => clearInterval(int);
   });
   return (
-    <CSSTransition in={realTime} timeout={2000} classNames="countDown" appear>
+    <CSSTransition in={realTime} timeout={1500} classNames="countDown" appear>
       <div className="flex flex-col justify-self-center self-center items-center z-20">
-        <div className="text-white font-medium uppercase drop-shadow-[0_0_8px_rgba(0,0,0,1)] sm:text-4xl xl:text-5xl">
+        <div className="text-white font-medium uppercase drop-shadow-[0_0_10px_rgba(0,0,0,1)] sm:text-4xl xl:text-5xl">
           {realTime
             ? moment
                 .duration(moment(raceTime).diff(moment(realTime)))

@@ -5,7 +5,7 @@
 .background-enter-active, .background-appear-active {
     opacity: 1;
     filter: blur(0);
-    transition: all 2000ms ease-in-out;
+    transition: all 1000ms ease-in-out 200ms;
 }
 .background-exit {
     opacity: 1;

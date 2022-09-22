@@ -1,16 +1,17 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect } from "react";
 import moment from "moment";
 import { getDatabase, ref, onValue } from "firebase/database";
 import firebaseApp from "./util/firebase";
 import "./App.css";
 
-import { Transition } from "react-transition-group";
+// import { Transition } from "react-transition-group";
 
 import Background from "./Components/Background";
 import Info from "./Components/Info";
 import Map from "./Components/Map";
 import Name from "./Components/Name";
-import Countdown from "./Components/Countdown";
+import History from "./Components/History";
+// import Countdown from "./Components/Countdown";
 
 function App() {
   const [schedule, setSchedule] = useState([]);
@@ -21,6 +22,7 @@ function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [trackListImgs, setTrackListImgs] = useState([]);
   const [backgroundImg, setBackgroundImg] = useState("");
+  const [selectedRound, setSelectedRound] = useState("");
   // const [isLoaded, setIsLoaded] = useState(false);
 
   const db = getDatabase(firebaseApp);
@@ -112,11 +114,14 @@ function App() {
   }, [currentRace]);
 
   useEffect(() => {
-    const ranIndex = Math.floor(
-      Math.random() * (trackListImgs[0]?.img.length - 1)
-    );
+    const ranIndex = Math.floor(Math.random() * trackListImgs[0]?.img.length);
     setBackgroundImg(trackListImgs[0]?.img[ranIndex]);
   }, [trackListImgs]);
+
+  const handleClick = (round) => {
+    setSelectedRound(round);
+    setCurrentRace(schedule.MRData?.RaceTable?.Races[round]);
+  };
 
   // useEffect(() => {
   //   const timer1 = setTimeout(() => {
@@ -148,6 +153,11 @@ function App() {
         <Info currentRace={currentRace} previousRecord={previousRecord} />
         <Map currentRace={currentRace} trackListImgs={trackListImgs} />
         <Name currentRace={currentRace} raceTime={raceTime} />
+        <History
+          schedule={schedule}
+          currentRace={currentRace}
+          handleClick={handleClick}
+        />
         {/* <Countdown currentRace={currentRace} raceTime={raceTime} /> */}
       </div>
     );
