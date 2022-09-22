@@ -17,11 +17,9 @@ const Info = ({ currentRace, previousRecord }) => {
   // if (currentRace && previousPit) {
   return (
     <CSSTransition in={true} timeout={2000} classNames="info" appear>
-      <div className="flex flex-col justify-end w-full mb-6 mx-6 self-end row-start-3 row-end-4 col-start-1 col-end-2 z-20 uppercase font-medium text-orange-400 sm:text-sm xl:text-lg">
-        <h4 className="w-fit mb-4 uppercase font-medium drop-shadow-[0_0_10px_rgba(0,0,0,1)] text-orange-400 z-10">
-          Local schedule:
-        </h4>
-        <h5 className="w-fit drop-shadow-[0_0_10px_rgba(0,0,0,1)]">
+      <div className="text flex flex-col justify-end w-full mb-6 mx-6 self-end row-start-3 row-end-4 col-start-1 col-end-2 z-20 uppercase font-semibold text-orange-400 drop-shadow-[0_0_10px_rgba(0,0,0,1)] sm:text-sm xl:text-lg">
+        <h4 className="w-fit mb-4 z-10">Local schedule:</h4>
+        <h5 className="w-fit">
           {Object.keys(currentRace)[7]}:{" "}
           <span className="text-white">
             {moment
@@ -34,7 +32,7 @@ const Info = ({ currentRace, previousRecord }) => {
               .format("MM-DD, dddd, HH:mm")}{" "}
           </span>
         </h5>
-        <h5 className="w-fit drop-shadow-[0_0_10px_rgba(0,0,0,1)]">
+        <h5 className="w-fit">
           {Object.keys(currentRace)[8]}:{" "}
           <span className="text-white">
             {moment
@@ -47,7 +45,7 @@ const Info = ({ currentRace, previousRecord }) => {
               .format("MM-DD, dddd, HH:mm")}{" "}
           </span>
         </h5>
-        <h5 className="w-fit drop-shadow-[0_0_10px_rgba(0,0,0,1)]">
+        <h5 className="w-fit">
           {Object.keys(currentRace)[9]}:{" "}
           <span className="text-white">
             {moment
@@ -60,7 +58,7 @@ const Info = ({ currentRace, previousRecord }) => {
               .format("MM-DD, dddd, HH:mm")}{" "}
           </span>
         </h5>
-        <h5 className="w-fit drop-shadow-[0_0_10px_rgba(0,0,0,1)]">
+        <h5 className="w-fit">
           {Object.keys(currentRace)[10]}:{" "}
           <span className="text-white">
             {moment
@@ -73,7 +71,7 @@ const Info = ({ currentRace, previousRecord }) => {
               .format("MM-DD, dddd, HH:mm")}{" "}
           </span>
         </h5>
-        <h5 className="w-fit drop-shadow-[0_0_10px_rgba(0,0,0,1)]">
+        <h5 className="w-fit">
           Race:{" "}
           <span className="text-white">
             {moment
