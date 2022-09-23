@@ -1,6 +1,13 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "manifest_version": 3,
+
+  "short_name": "F1",
+  "name": "F1 New Tab Replacer",
+  "description": "This extension will replace the default new tab page with one that displays the next Formula 1 race and related information.",
+  "version": "0.0.1",
+  "chrome_url_overrides": {
+    "newtab": "index.html"
+  },
   "icons": [
     {
       "src": "favicon.ico",

@@ -1,16 +1,10 @@
-import React, { useState, useEffect } from "react";
-import { CSSTransition, SwitchTransition } from "react-transition-group";
+import React from "react";
+import { CSSTransition } from "react-transition-group";
 
 import Countdown from "./Countdown";
 import "./Name.css";
 
-const Name = ({
-  currentRace,
-  raceTime,
-  isSelected,
-  currentRound,
-  visibility,
-}) => {
+const Name = ({ currentRace, raceTime, isSelected, visibility }) => {
   return (
     <div className="flex flex-col justify-self-center self-start items-center row-start-2 row-end-3 col-start-1 col-end-5 pt-12">
       <CSSTransition in={isSelected} timeout={800} classNames="name" appear>

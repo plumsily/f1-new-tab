@@ -4,17 +4,6 @@ import { CSSTransition } from "react-transition-group";
 import "./Info.css";
 
 const Info = ({ currentRace, previousRecord, isSelected, visibility }) => {
-  // let numDrivers = 0;
-  // if (isLoaded) {
-  //   for (let key of Object.keys(
-  //     previousPit.MRData?.RaceTable?.Races[0]?.PitStops
-  //   )) {
-  //     if (previousPit.MRData?.RaceTable?.Races[0]?.PitStops[key]?.stop == "1") {
-  //       numDrivers++;
-  //     }
-  //   }
-  // }
-  // if (currentRace && previousPit) {
   return (
     <CSSTransition in={isSelected} timeout={1500} classNames="info" appear>
       <div className="text flex flex-col justify-end w-full mb-6 mx-6 self-end row-start-3 row-end-4 col-start-1 col-end-2 z-20 uppercase font-semibold text-orange-500 drop-shadow-[0_0_10px_rgba(0,0,0,1)] sm:text-sm xl:text-lg">
@@ -116,18 +105,9 @@ const Info = ({ currentRace, previousRecord, isSelected, visibility }) => {
             }
           </span>
         </p>
-        {/* <p className="mt-4">
-          Average pit stop count:{" "}
-          <span className="text-white">
-            {(previousPit.MRData?.total / numDrivers).toFixed(2)}
-          </span>
-        </p> */}
       </div>
     </CSSTransition>
   );
-  // } else {
-  //   return <div>Still Loading...</div>;
-  // }
 };
 
 export default Info;
