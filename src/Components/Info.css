@@ -5,12 +5,12 @@
 .info-enter-active, .info-appear-active {
     opacity: 1;
     scale: 1;
-    transition: all 1000ms ease-in-out 1000ms;
+    transition: all 500ms ease-in-out 1000ms;
 }
 .info-exit {
     opacity: 1;
 }
 .info-exit-active {
     opacity: 0;
-    transition: opacity 1000ms ease-in-out;
+    /* transition: opacity 1000ms ease-in-out; */
 }

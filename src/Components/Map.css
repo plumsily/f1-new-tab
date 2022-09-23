@@ -5,12 +5,12 @@
 .map-enter-active, .map-appear-active {
     opacity: 1;
     scale: 1;
-    transition: all 1000ms ease-in-out 1000ms;
+    transition: all 500ms ease-in-out 1000ms;
 }
 .map-exit {
     opacity: 1;
 }
 .map-exit-active {
     opacity: 0;
-    transition: opacity 1000ms ease-in-out;
+    /* transition: opacity 1000ms ease-in-out; */
 }

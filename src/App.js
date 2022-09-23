@@ -22,7 +22,10 @@ function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [trackListImgs, setTrackListImgs] = useState([]);
   const [backgroundImg, setBackgroundImg] = useState("");
-  const [selectedRound, setSelectedRound] = useState("");
+  const [currentRound, setCurrentRound] = useState("");
+  const [roundChange, setRoundChange] = useState(false);
+  const [isSelected, setIsSelected] = useState(true);
+  const [visibility, setVisibility] = useState("visible");
   // const [isLoaded, setIsLoaded] = useState(false);
 
   const db = getDatabase(firebaseApp);
@@ -81,7 +84,13 @@ function App() {
         (race) => currentDate <= race.date
       )[0]
     );
+    setRoundChange(true);
   }, [schedule]);
+
+  useEffect(() => {
+    setRoundChange(false);
+    setCurrentRound(currentRace?.round);
+  }, [roundChange]);
 
   useEffect(() => {
     updateRecord();
@@ -111,6 +120,11 @@ function App() {
         )
       );
     });
+    if (parseInt(currentRace?.round) < parseInt(currentRound)) {
+      setVisibility("invisible");
+    } else {
+      setVisibility("visible");
+    }
   }, [currentRace]);
 
   useEffect(() => {
@@ -119,8 +133,12 @@ function App() {
   }, [trackListImgs]);
 
   const handleClick = (round) => {
-    setSelectedRound(round);
+    setIsSelected(false);
     setCurrentRace(schedule.MRData?.RaceTable?.Races[round]);
+    const timer2 = setTimeout(() => {
+      setIsSelected(true);
+    }, 200);
+    return () => clearTimeout(timer2);
   };
 
   // useEffect(() => {
@@ -149,14 +167,31 @@ function App() {
       //   </div>
       // </div>
       <div className="relative top-0 left-0 grid grid-rows-3 grid-cols-4 h-screen w-screen bg-black">
-        <Background backgroundImg={backgroundImg} />
-        <Info currentRace={currentRace} previousRecord={previousRecord} />
-        <Map currentRace={currentRace} trackListImgs={trackListImgs} />
-        <Name currentRace={currentRace} raceTime={raceTime} />
+        <Background backgroundImg={backgroundImg} isSelected={isSelected} />
+        <Info
+          currentRace={currentRace}
+          previousRecord={previousRecord}
+          isSelected={isSelected}
+          visibility={visibility}
+        />
+        <Map
+          currentRace={currentRace}
+          trackListImgs={trackListImgs}
+          isSelected={isSelected}
+        />
+        <Name
+          currentRace={currentRace}
+          raceTime={raceTime}
+          isSelected={isSelected}
+          currentRound={currentRound}
+          visibility={visibility}
+        />
         <History
           schedule={schedule}
           currentRace={currentRace}
           handleClick={handleClick}
+          isSelected={isSelected}
+          currentRound={currentRound}
         />
         {/* <Countdown currentRace={currentRace} raceTime={raceTime} /> */}
       </div>

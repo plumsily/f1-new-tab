@@ -1,16 +1,16 @@
 .countDown-enter, .countDown-appear{
     opacity: 0;
-    scale: 1.03;
+    scale: 0.97;
 }
 .countDown-enter-active, .countDown-appear-active {
     opacity: 1;
     scale: 1;
-    transition: all 1000ms ease-in-out 500ms;
+    transition: all 1500ms ease-in-out 1500ms;
 }
 .countDown-exit {
     opacity: 1;
 }
 .countDown-exit-active {
     opacity: 0;
-    transition: opacity 1000ms ease-in-out;
+    /* transition: opacity 200ms ease-in-out; */
 }
