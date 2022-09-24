@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { getDatabase, ref, onValue } from "firebase/database";
-import firebaseApp from "./util/firebase";
+import { ref, onValue } from "firebase/database";
+// import { getDatabase, ref, onValue } from "./util/firebase-database";
+import { firebaseApp, db, circuitList } from "./util/firebase";
 import "./App.css";
 
 import Background from "./Components/Background";
@@ -23,7 +24,7 @@ function App() {
   const [isSelected, setIsSelected] = useState(true);
   const [visibility, setVisibility] = useState("visible");
 
-  const db = getDatabase(firebaseApp);
+  // const db = getDatabase(firebaseApp);
 
   const updateSchedule = async () => {
     try {
@@ -80,21 +81,27 @@ function App() {
         .format("YYYY-MM-DD, HH:mm:ss")
     );
 
-    const circuitRef = ref(db, "/circuits");
+    // const circuitRef = ref(db, "/circuits");
 
-    onValue(circuitRef, (snapshot) => {
-      const circuit = snapshot.val();
-      const circuitList = [];
+    // onValue(circuitRef, (snapshot) => {
+    //   const circuit = snapshot.val();
+    //   const circuitList = [];
 
-      for (let id in circuit) {
-        circuitList.push({ id, ...circuit[id] });
-      }
-      setTrackListImgs(
-        circuitList.filter(
-          (circuits) => currentRace?.Circuit?.circuitId === circuits.id
-        )
-      );
-    });
+    //   for (let id in circuit) {
+    //     circuitList.push({ id, ...circuit[id] });
+    //   }
+    //   setTrackListImgs(
+    //     circuitList.filter(
+    //       (circuits) => currentRace?.Circuit?.circuitId === circuits.id
+    //     )
+    //   );
+    // });
+    setTrackListImgs(
+      circuitList.filter(
+        (circuits) => currentRace?.Circuit?.circuitId === circuits.id
+      )
+    );
+
     if (parseInt(currentRace?.round) < parseInt(currentRound)) {
       setVisibility("invisible");
     } else {
