@@ -20,7 +20,7 @@ const History = ({
         onClick={() => {
           shuffleClick();
         }}
-        className="self-end text-red-500 hover:text-red-500"
+        className="flex self-end items-center h-6 text-red-500 hover:text-red-500 text-lg"
       >
         <FontAwesomeIcon icon={faShuffle} />
       </button>
@@ -31,7 +31,7 @@ const History = ({
         onClick={() => {
           shuffleClick();
         }}
-        className="self-end text-white/40 hover:text-red-500"
+        className="flex self-end items-center h-6 text-white/40 hover:text-red-500 text-lg"
       >
         <FontAwesomeIcon icon={faShuffle} />
       </button>
