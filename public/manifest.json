@@ -9,8 +9,8 @@
     "newtab": "index.html"
   },
   "icons": {
-    "16": "🏎️",
-    "48": "🏎️",
-    "128": "🏎️"
+    "16": 	"race-car-16.png",
+    "48": "race-car-48.png",
+    "128": "race-car-128.png"
   }
 }
