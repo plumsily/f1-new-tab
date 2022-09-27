@@ -1,10 +1,42 @@
 import React from "react";
 import { CSSTransition } from "react-transition-group";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faShuffle } from "@fortawesome/free-solid-svg-icons";
 
 import "./History.css";
 
-const History = ({ schedule, currentRace, handleClick, currentRound }) => {
+const History = ({
+  schedule,
+  currentRace,
+  handleClick,
+  currentRound,
+  shuffleClick,
+  shuffle,
+}) => {
   const rounds = [];
+  if (shuffle) {
+    rounds.push(
+      <button
+        onClick={() => {
+          shuffleClick();
+        }}
+        className="self-end text-red-500 hover:text-red-500"
+      >
+        <FontAwesomeIcon icon={faShuffle} />
+      </button>
+    );
+  } else {
+    rounds.push(
+      <button
+        onClick={() => {
+          shuffleClick();
+        }}
+        className="self-end text-white/40 hover:text-red-500"
+      >
+        <FontAwesomeIcon icon={faShuffle} />
+      </button>
+    );
+  }
   for (let i = 0; i < schedule?.MRData?.total; i++) {
     if (i + 1 == currentRace?.round) {
       rounds.push(

@@ -5,7 +5,7 @@
 .countDown-enter-active, .countDown-appear-active {
     opacity: 1;
     scale: 1;
-    transition: all 1500ms ease-in-out 1500ms;
+    transition: all 1000ms ease-in-out 1500ms;
 }
 .countDown-exit {
     opacity: 1;

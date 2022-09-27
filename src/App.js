@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import moment from "moment";
-import { ref, onValue } from "firebase/database";
-// import { getDatabase, ref, onValue } from "./util/firebase-database";
-import { firebaseApp, db, circuitList } from "./util/firebase";
+import { firebaseApp, circuitList } from "./util/firebase";
 import "./App.css";
 
 import Background from "./Components/Background";
@@ -19,13 +17,15 @@ function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [trackListImgs, setTrackListImgs] = useState([]);
   const [backgroundImg, setBackgroundImg] = useState("");
+  const [totalRound, setTotalRound] = useState("");
   const [currentRound, setCurrentRound] = useState("");
   const [roundChange, setRoundChange] = useState(false);
   const [isSelected, setIsSelected] = useState(true);
   const [visibility, setVisibility] = useState("visible");
+  const [raceWeekTitle, setRaceWeekTitle] = useState(false);
+  const [shuffle, setShuffle] = useState(false);
 
-  // const db = getDatabase(firebaseApp);
-
+  //Initial fetch for the F1 2022 Schedule.
   const updateSchedule = async () => {
     try {
       const response = await fetch("http://ergast.com/api/f1/current.json");
@@ -36,6 +36,7 @@ function App() {
       setSchedule({ content: "Something went wrong" });
     }
   };
+  //Secondary fetch for the most recent race results for current race.
   const updateRecord = async () => {
     try {
       const response = await fetch(
@@ -48,72 +49,82 @@ function App() {
       setPreviousRecord({ content: "Something went wrong" });
     }
   };
-
+  //Initial mount
   useEffect(() => {
     updateSchedule();
     setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
   }, []);
-
+  //Sets both current round and dependency for setting the round state. If the 2022 season has ended, the page will start with a random race to display.
   useEffect(() => {
-    setCurrentRace(
-      schedule.MRData?.RaceTable.Races.filter(
-        (race) => currentDate <= race.date
-      )[0]
-    );
+    if (
+      moment.utc().format("YYYY-MM-DD") >
+      moment
+        .utc(
+          schedule.MRData?.RaceTable.Races[
+            schedule.MRData?.RaceTable.Races.length - 1
+          ].date
+        )
+        .format("YYYY-MM-DD")
+    ) {
+      shuffleClick();
+      setShuffle(true);
+    } else {
+      setCurrentRace(
+        schedule.MRData?.RaceTable.Races.filter(
+          (race) => currentDate <= race.date
+        )[0]
+      );
+    }
     setRoundChange(true);
+    setTotalRound(schedule.MRData?.total);
   }, [schedule]);
-
+  //Sets the static state of the current round without being dependent on state changes for current race
   useEffect(() => {
     setRoundChange(false);
     setCurrentRound(currentRace?.round);
   }, [roundChange]);
-
+  //Sets info, map, and background data for currently selected race.
   useEffect(() => {
     updateRecord();
     setRaceTime(
       moment
-        .utc(
-          currentRace?.Qualifying?.date +
-            " " +
-            currentRace?.Qualifying?.time.slice(0, -1)
-        )
+        .utc(currentRace?.date + " " + currentRace?.time?.slice(0, -1))
         .local()
         .format("YYYY-MM-DD, HH:mm:ss")
     );
-
-    // const circuitRef = ref(db, "/circuits");
-
-    // onValue(circuitRef, (snapshot) => {
-    //   const circuit = snapshot.val();
-    //   const circuitList = [];
-
-    //   for (let id in circuit) {
-    //     circuitList.push({ id, ...circuit[id] });
-    //   }
-    //   setTrackListImgs(
-    //     circuitList.filter(
-    //       (circuits) => currentRace?.Circuit?.circuitId === circuits.id
-    //     )
-    //   );
-    // });
+    //current race's background images
     setTrackListImgs(
       circuitList.filter(
         (circuits) => currentRace?.Circuit?.circuitId === circuits.id
       )
     );
-
+  }, [currentRace]);
+  //toggling to show countdown and schedule for passed races
+  useEffect(() => {
     if (parseInt(currentRace?.round) < parseInt(currentRound)) {
       setVisibility("invisible");
     } else {
-      setVisibility("visible");
+      if (moment().format("YYYY-MM-DD, HH:mm:ss") > raceTime) {
+        setVisibility("invisible");
+      } else if (
+        moment
+          .utc(currentRace?.date + " " + currentRace?.time?.slice(0, -1))
+          .subtract(7, "d") <= moment()
+      ) {
+        setRaceWeekTitle(true);
+        setVisibility("visible");
+      } else {
+        setRaceWeekTitle(false);
+        setVisibility("visible");
+      }
     }
-  }, [currentRace]);
-
+  }, [raceTime]);
+  //Sets random index to shuffle background images.
   useEffect(() => {
     const ranIndex = Math.floor(Math.random() * trackListImgs[0]?.img.length);
     setBackgroundImg(trackListImgs[0]?.img[ranIndex]);
   }, [trackListImgs]);
-
+  //Updates current race info data when user clicks on the selected round.
   const handleClick = (round) => {
     setIsSelected(false);
     setCurrentRace(schedule.MRData?.RaceTable?.Races[round]);
@@ -121,6 +132,16 @@ function App() {
       setIsSelected(true);
     }, 200);
     return () => clearTimeout(timer2);
+  };
+  //Shuffles the current round to display
+  const shuffleClick = () => {
+    setIsSelected(false);
+    const shuffleIndex = Math.floor(Math.random() * parseInt(totalRound));
+    setCurrentRace(schedule.MRData?.RaceTable?.Races[shuffleIndex]);
+    const timer3 = setTimeout(() => {
+      setIsSelected(true);
+    }, 200);
+    return () => clearTimeout(timer3);
   };
 
   if (trackListImgs && currentRace && previousRecord && raceTime) {
@@ -139,13 +160,15 @@ function App() {
           raceTime={raceTime}
           isSelected={isSelected}
           visibility={visibility}
+          raceWeekTitle={raceWeekTitle}
         />
         <History
           schedule={schedule}
           currentRace={currentRace}
           handleClick={handleClick}
-          isSelected={isSelected}
           currentRound={currentRound}
+          shuffleClick={shuffleClick}
+          shuffle={shuffle}
         />
       </div>
     );
