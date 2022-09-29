@@ -20,7 +20,7 @@ const History = ({
         onClick={() => {
           shuffleClick();
         }}
-        className="flex self-end items-center h-6 text-red-500 hover:text-red-500 text-lg"
+        className="flex self-end items-center h-6 text-red-500 hover:text-red-500 drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] text-lg"
       >
         <FontAwesomeIcon icon={faShuffle} />
       </button>
@@ -31,7 +31,7 @@ const History = ({
         onClick={() => {
           shuffleClick();
         }}
-        className="flex self-end items-center h-6 text-white/40 hover:text-red-500 text-lg"
+        className="flex self-end items-center h-6 text-white/40 hover:text-red-500 drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] text-lg"
       >
         <FontAwesomeIcon icon={faShuffle} />
       </button>
@@ -81,6 +81,11 @@ const History = ({
       }
     }
   }
+  rounds.push(
+    <div className="flex self-end items-center w-12 h-6 text-white/40 drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] text-xs uppercase leading-tight">
+      {schedule.MRData?.RaceTable?.season} Season
+    </div>
+  );
   return (
     <div className="flex flex-col justify-self-center self-end items-center row-start-3 row-end-4 col-start-2 col-end-4 pt-2 pb-8 w-1/2">
       <CSSTransition in={true} timeout={1000} classNames="history" appear>
