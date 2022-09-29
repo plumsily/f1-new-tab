@@ -28,7 +28,7 @@ function App() {
   //Initial fetch for the F1 2022 Schedule.
   const updateSchedule = async () => {
     try {
-      const response = await fetch("http://ergast.com/api/f1/current.json");
+      const response = await fetch("https://ergast.com/api/f1/current.json");
       const result = await response.json();
       setSchedule(result);
     } catch (error) {
@@ -40,7 +40,7 @@ function App() {
   const updateRecord = async () => {
     try {
       const response = await fetch(
-        `http://ergast.com/api/f1/circuits/${currentRace?.Circuit?.circuitId}/results/1.json?limit=100`
+        `https://ergast.com/api/f1/circuits/${currentRace?.Circuit?.circuitId}/results/1.json?limit=100`
       );
       const result = await response.json();
       setPreviousRecord(result);
