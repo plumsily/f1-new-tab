@@ -68,19 +68,27 @@ This app was inspired by various other Chrome new tab replacers that display aes
 
 Pertinent info is displayed at the center of the page. This includes the name of the race, name of the circuit, date, and (if applicable) countdown until the race date.
 
-<img align="center" src="src/screenshots/f1-screenshot5.png">
+<img src="src/screenshots/f1-screenshot5.png">
+<br>
+<br>
 
 For the nearest upcoming race, within one week, the title will change accordingly.
 
-<img align="center" src="src/screenshots/f1-screenshot4.png">
+<img src="src/screenshots/f1-screenshot4.png">
+<br>
+<br>
 
 For upcoming races, local schedule times will be displayed at the bottom left along with historical records like previous race winner and fastest lap times.
 
 <img src="src/screenshots/f1-screenshot2.png">
+<br>
+<br>
 
 For all races, the track layout map will be displayed at the bottom right. Here all turn numbers and DRS zones are shown.
 
 <img src="src/screenshots/f1-screenshot3.png">
+<br>
+<br>
 
 To access other races like past races of the season, a history bar on the bottom center of the page allows access to all rounds. Currently displayed race is indicated by a red pill. The next upcoming race is indicated by a green pill when not displayed. At the end of the season, the race shuffle button will be selected by default.
 
@@ -89,6 +97,8 @@ To access other races like past races of the season, a history bar on the bottom
 <img src="src/screenshots/f1-screenshot7.png">
 
 <img src="src/screenshots/f1-screenshot9.png">
+<br>
+<br>
 
 For past races, only the current race winner and fastest lap time will be shown.
 
