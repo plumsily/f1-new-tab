@@ -40,7 +40,7 @@
 
 ## About The Project
 
-<img src="/screenshots/f1-screenshot1.png">
+<img src="src/screenshots/f1-screenshot1.png">
 
 Here's a blank template to get started: To avoid retyping too much info. Do a search and replace with your text editor for the following: `plumsily`, `f1-new-tab`, `plumsily`, `justinsangwonlee`, `gmail`, `plumsylee`, `F1 New Tab`, `project_description`
 
