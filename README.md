@@ -70,6 +70,10 @@ Pertinent info is displayed at the center of the page. This includes the name of
 
 <img src="src/screenshots/f1-screenshot5.png">
 
+For the nearest upcoming race, within one week, the title will change accordingly.
+
+<img src="src/screenshots/f1-screenshot4.png">
+
 For upcoming races, local schedule times will be displayed at the bottom left along with historical records like previous race winner and fastest lap times.
 
 <img src="src/screenshots/f1-screenshot2.png">
