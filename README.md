@@ -43,7 +43,7 @@
 
 <img src="src/screenshots/f1-screenshot10.png">
 
-This app was inspired by various other Chrome new tab replacers that display aesthetic backgrounds. Additionally, I wanted to serve relevant info related to F1 races at a quick glance. The combination of those motivations resulted in a page that automatically displays the next upcoming race on the schedule. Features include:
+This app was inspired by various other Chrome new tab replacers that display aesthetic backgrounds. Additionally, I wanted to serve relevant info related to F1 races at a quick glance. The combination of those motivations resulted in a page that automatically displays the next upcoming race on the schedule. Race info is obtained via the Ergast Developer API. Features include:
 
 - Countdown to upcoming races
 - Several wallpaper quality backgrounds
