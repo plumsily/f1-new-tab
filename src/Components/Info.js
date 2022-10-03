@@ -6,7 +6,7 @@ import "./Info.css";
 const Info = ({ currentRace, previousRecord, isSelected, visibility }) => {
   return (
     <CSSTransition in={isSelected} timeout={1500} classNames="info" appear>
-      <div className="text flex flex-col justify-end w-full mb-6 mx-6 self-end row-start-3 row-end-4 col-start-1 col-end-2 z-20 uppercase font-semibold text-orange-500 drop-shadow-[0_0_10px_rgba(0,0,0,1)] sm:text-sm xl:text-lg">
+      <div className="flex flex-col justify-end w-full mb-6 mx-6 self-end row-start-3 row-end-4 col-start-1 col-end-2 z-20 uppercase font-semibold text-lime-400 drop-shadow-[0_0_10px_rgba(0,0,0,1)] sm:text-sm xl:text-lg">
         <div className={`${visibility}`}>
           <h4 className="w-fit mb-4 z-10">Local schedule:</h4>
           <h5 className="w-fit">

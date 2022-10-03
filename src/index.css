@@ -12,5 +12,5 @@ body {
 }
 
 .text {
-  text-shadow: 0px 8px 30px rgba(0, 0, 0, 0.4);
+  text-shadow: 0px 0px 20px rgba(0, 0, 0, 0.8), 0px 0px 90px rgba(0, 0, 0, 1),  0px 0px 150px rgba(0, 0, 0, 1);
 }

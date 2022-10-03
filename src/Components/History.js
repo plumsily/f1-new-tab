@@ -20,7 +20,7 @@ const History = ({
         onClick={() => {
           shuffleClick();
         }}
-        className="flex self-end items-center h-6 text-red-500 hover:text-red-500 drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] text-lg"
+        className="flex self-end items-center h-6 text-red-500 hover:scale-110 transition-all drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] text-lg"
       >
         <FontAwesomeIcon icon={faShuffle} />
       </button>
@@ -31,7 +31,7 @@ const History = ({
         onClick={() => {
           shuffleClick();
         }}
-        className="flex self-end items-center h-6 text-white/40 hover:text-red-500 drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] text-lg"
+        className="flex self-end items-center h-6 text-white/40 hover:text-red-500 hover:scale-110 transition-all drop-shadow-[0_0_8px_rgba(0,0,0,0.4)] text-lg"
       >
         <FontAwesomeIcon icon={faShuffle} />
       </button>
@@ -62,7 +62,7 @@ const History = ({
             <span className="mb-1.5 opacity-0 group-hover:opacity-100 text-red-500 font-bold transition-all ">
               {i + 1}
             </span>
-            <div className="w-2 h-6 rounded bg-green-500/60 group-hover:bg-red-500 group-hover:scale-125   transition-all cursor-pointer backdrop-blur-lg"></div>
+            <div className="w-2 h-6 rounded bg-lime-400/60 group-hover:bg-red-500 group-hover:scale-125   transition-all cursor-pointer backdrop-blur-lg"></div>
           </div>
         );
       } else {
