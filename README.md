@@ -97,8 +97,6 @@ For past races, only the current race winner and fastest lap time will be shown.
 
 <img src="src/screenshots/f1-screenshot8.png" width="600">
 
-_For more examples, please refer to the [Documentation](https://example.com)_
-
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
 <!-- ROADMAP -->
