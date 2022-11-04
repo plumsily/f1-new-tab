@@ -66,12 +66,12 @@ This app was inspired by various other Chrome new tab replacers that display aes
 
 Pertinent info is displayed at the center of the page. This includes the name of the race, name of the circuit, date, and (if applicable) countdown until the race date.
 
-<img src="src/screenshots/f1-screenshot5.png">
+<img src="src/screenshots/f1-screenshot5.png" width="400">
 <br>
 
 For the nearest upcoming race, within one week, the title will change accordingly.
 
-<img src="src/screenshots/f1-screenshot4.png">
+<img src="src/screenshots/f1-screenshot4.png" width="400">
 <br>
 
 For upcoming races, local schedule times will be displayed at the bottom left along with historical records like previous race winner and fastest lap times.
