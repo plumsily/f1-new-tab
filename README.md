@@ -13,10 +13,8 @@
   <p align="center">
     This Chrome extension will replace the default new tab page with one that displays current Formula 1 race information as well as providing wallpaper quality images of each circuit.
     <br />
-    <a href="https://github.com/plumsily/f1-new-tab"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://plumsily.github.io/f1-new-tab/">View Demo</a>
+    <a href="https://plumsily.github.io/f1-new-tab/"><strong>View it live here!</strong></a>
   </p>
 </div>
 
