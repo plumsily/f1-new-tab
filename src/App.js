@@ -30,6 +30,29 @@ function App() {
     try {
       const response = await fetch("https://ergast.com/api/f1/current.json");
       const result = await response.json();
+      let tempSchedule = result;
+      let tempTotalRound = tempSchedule.MRData?.total;
+      if (
+        moment.utc().format("YYYY-MM-DD") >
+        moment
+          .utc(
+            tempSchedule.MRData?.RaceTable.Races[
+              tempSchedule.MRData?.RaceTable.Races.length - 1
+            ].date
+          )
+          .format("YYYY-MM-DD")
+      ) {
+        shuffleClick();
+        setShuffle(true);
+      } else {
+        setCurrentRace(
+          tempSchedule.MRData?.RaceTable.Races.filter(
+            (race) => currentDate <= race.date
+          )[0]
+        );
+      }
+      setRoundChange(true);
+      setTotalRound(tempTotalRound);
       setSchedule(result);
     } catch (error) {
       console.log(error);
@@ -44,6 +67,7 @@ function App() {
       );
       const result = await response.json();
       setPreviousRecord(result);
+      //parse all info here
     } catch (error) {
       console.log(error);
       setPreviousRecord({ content: "Something went wrong" });
@@ -51,33 +75,33 @@ function App() {
   };
   //Initial mount
   useEffect(() => {
-    updateSchedule();
     setCurrentDate(moment().format("YYYY-MM-DD, HH:mm:ss"));
+    updateSchedule();
   }, []);
   //Sets both current round and dependency for setting the round state. If the 2022 season has ended, the page will start with a random race to display.
-  useEffect(() => {
-    if (
-      moment.utc().format("YYYY-MM-DD") >
-      moment
-        .utc(
-          schedule.MRData?.RaceTable.Races[
-            schedule.MRData?.RaceTable.Races.length - 1
-          ].date
-        )
-        .format("YYYY-MM-DD")
-    ) {
-      shuffleClick();
-      setShuffle(true);
-    } else {
-      setCurrentRace(
-        schedule.MRData?.RaceTable.Races.filter(
-          (race) => currentDate <= race.date
-        )[0]
-      );
-    }
-    setRoundChange(true);
-    setTotalRound(schedule.MRData?.total);
-  }, [schedule]);
+  // useEffect(() => {
+  //   if (
+  //     moment.utc().format("YYYY-MM-DD") >
+  //     moment
+  //       .utc(
+  //         schedule.MRData?.RaceTable.Races[
+  //           schedule.MRData?.RaceTable.Races.length - 1
+  //         ].date
+  //       )
+  //       .format("YYYY-MM-DD")
+  //   ) {
+  //     shuffleClick();
+  //     setShuffle(true);
+  //   } else {
+  //     setCurrentRace(
+  //       schedule.MRData?.RaceTable.Races.filter(
+  //         (race) => currentDate <= race.date
+  //       )[0]
+  //     );
+  //   }
+  //   setRoundChange(true);
+  //   setTotalRound(schedule.MRData?.total);
+  // }, [schedule]);
   //Sets the static state of the current round without being dependent on state changes for current race
   useEffect(() => {
     setRoundChange(false);
@@ -125,9 +149,14 @@ function App() {
     setBackgroundImg(trackListImgs[0]?.img[ranIndex]);
   }, [trackListImgs]);
   //Updates current race info data when user clicks on the selected round.
-  const handleClick = (round) => {
+  const handleClick = async (round) => {
     setIsSelected(false);
+    //call updaterace
+    //await updaterecord()
     setCurrentRace(schedule.MRData?.RaceTable?.Races[round]);
+    if (shuffle) {
+      setCurrentRound(round + 1);
+    }
     const timer2 = setTimeout(() => {
       setIsSelected(true);
     }, 200);
