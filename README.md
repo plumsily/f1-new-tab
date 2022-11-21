@@ -13,10 +13,8 @@
   <p align="center">
     This Chrome extension will replace the default new tab page with one that displays current Formula 1 race information as well as providing wallpaper quality images of each circuit.
     <br />
-    <a href="https://github.com/plumsily/f1-new-tab"><strong>Explore the docs »</strong></a>
     <br />
-    <br />
-    <a href="https://plumsily.github.io/f1-new-tab/">View Demo</a>
+    <a href="https://plumsily.github.io/f1-new-tab/"><strong>View it live here!</strong></a>
   </p>
 </div>
 
@@ -68,38 +66,36 @@ This app was inspired by various other Chrome new tab replacers that display aes
 
 Pertinent info is displayed at the center of the page. This includes the name of the race, name of the circuit, date, and (if applicable) countdown until the race date.
 
-<img src="src/screenshots/f1-screenshot5.png">
+<img src="src/screenshots/f1-screenshot5.png" width="600">
 <br>
 
 For the nearest upcoming race, within one week, the title will change accordingly.
 
-<img src="src/screenshots/f1-screenshot4.png">
+<img src="src/screenshots/f1-screenshot4.png" width="600">
 <br>
 
 For upcoming races, local schedule times will be displayed at the bottom left along with historical records like previous race winner and fastest lap times.
 
-<img src="src/screenshots/f1-screenshot2.png">
+<img src="src/screenshots/f1-screenshot2.png" width="600">
 <br>
 
 For all races, the track layout map will be displayed at the bottom right. Here all turn numbers and DRS zones are shown.
 
-<img src="src/screenshots/f1-screenshot3.png">
+<img src="src/screenshots/f1-screenshot3.png" width="600">
 <br>
 
 To access other races like past races of the season, a history bar on the bottom center of the page allows access to all rounds. Currently displayed race is indicated by a red pill. The next upcoming race is indicated by a green pill when not displayed. At the end of the season, the race shuffle button will be selected by default.
 
-<img src="src/screenshots/f1-screenshot6.png">
+<img src="src/screenshots/f1-screenshot6.png" width="600">
 
-<img src="src/screenshots/f1-screenshot7.png">
+<img src="src/screenshots/f1-screenshot7.png" width="600">
 
-<img src="src/screenshots/f1-screenshot9.png">
+<img src="src/screenshots/f1-screenshot9.png" width="600">
 <br>
 
 For past races, only the current race winner and fastest lap time will be shown.
 
-<img src="src/screenshots/f1-screenshot8.png">
-
-_For more examples, please refer to the [Documentation](https://example.com)_
+<img src="src/screenshots/f1-screenshot8.png" width="600">
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 
