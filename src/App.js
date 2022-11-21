@@ -17,8 +17,8 @@ function App() {
   const [currentDate, setCurrentDate] = useState("");
   const [trackListImgs, setTrackListImgs] = useState([]);
   const [backgroundImg, setBackgroundImg] = useState("");
-  const [totalRound, setTotalRound] = useState("");
-  const [currentRound, setCurrentRound] = useState("");
+  const [totalRound, setTotalRound] = useState(0);
+  const [currentRound, setCurrentRound] = useState(0);
   const [roundChange, setRoundChange] = useState(false);
   const [isSelected, setIsSelected] = useState(true);
   const [visibility, setVisibility] = useState("visible");
@@ -42,7 +42,7 @@ function App() {
           )
           .format("YYYY-MM-DD")
       ) {
-        shuffleClick();
+        shuffleClick(tempSchedule, tempTotalRound);
         setShuffle(true);
       } else {
         setCurrentRace(
@@ -67,6 +67,9 @@ function App() {
       );
       const result = await response.json();
       setPreviousRecord(result);
+      if (shuffle) {
+        setCurrentRound(currentRace?.round);
+      }
       //parse all info here
     } catch (error) {
       console.log(error);
@@ -163,10 +166,19 @@ function App() {
     return () => clearTimeout(timer2);
   };
   //Shuffles the current round to display
-  const shuffleClick = () => {
+  const shuffleClick = (tempSchedule, tempTotalRound) => {
     setIsSelected(false);
-    const shuffleIndex = Math.floor(Math.random() * parseInt(totalRound));
-    setCurrentRace(schedule.MRData?.RaceTable?.Races[shuffleIndex]);
+    let shuffleIndex = 0;
+    if (tempTotalRound) {
+      shuffleIndex = Math.floor(Math.random() * parseInt(tempTotalRound));
+    } else {
+      shuffleIndex = Math.floor(Math.random() * parseInt(totalRound));
+    }
+    if (tempSchedule) {
+      setCurrentRace(tempSchedule.MRData?.RaceTable?.Races[shuffleIndex]);
+    } else {
+      setCurrentRace(schedule.MRData?.RaceTable?.Races[shuffleIndex]);
+    }
     const timer3 = setTimeout(() => {
       setIsSelected(true);
     }, 200);
