@@ -12,6 +12,7 @@ const Background = ({ backgroundImg, isSelected }) => {
       timeout={1300}
       classNames="background"
       appear
+      unmountOnExit
     >
       <div className="relative flex justify-center row-start-1 row-end-4 col-start-1 col-end-5 z-0">
         <img className="w-full object-cover" src={backgroundImg}></img>
