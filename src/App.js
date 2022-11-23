@@ -57,6 +57,13 @@ function App() {
     } catch (error) {
       console.log(error);
       setSchedule({ content: "Something went wrong" });
+      let fallbackIndex = Math.floor(Math.random() * circuitList.length);
+      setTrackListImgs(circuitList[fallbackIndex]);
+      setIsSelected(true);
+      // const timer = setTimeout(() => {
+      //   setIsSelected(true);
+      // }, 200);
+      // return () => clearTimeout(timer);
     }
   };
   //Secondary fetch for the most recent race results for current race.
@@ -148,8 +155,13 @@ function App() {
   }, [raceTime]);
   //Sets random index to shuffle background images.
   useEffect(() => {
-    const ranIndex = Math.floor(Math.random() * trackListImgs[0]?.img.length);
-    setBackgroundImg(trackListImgs[0]?.img[ranIndex]);
+    if (trackListImgs.length) {
+      const ranIndex = Math.floor(Math.random() * trackListImgs[0]?.img.length);
+      setBackgroundImg(trackListImgs[0]?.img[ranIndex]);
+    } else if (trackListImgs.img) {
+      const ranIndex = Math.floor(Math.random() * trackListImgs?.img.length);
+      setBackgroundImg(trackListImgs?.img[ranIndex]);
+    }
   }, [trackListImgs]);
   //Updates current race info data when user clicks on the selected round.
   const handleClick = async (round) => {
@@ -185,7 +197,7 @@ function App() {
     return () => clearTimeout(timer3);
   };
 
-  if (trackListImgs && currentRace && previousRecord && raceTime) {
+  if (trackListImgs.length && currentRace && previousRecord && raceTime) {
     return (
       <div className="relative top-0 left-0 grid grid-rows-3 grid-cols-4 h-screen w-screen bg-black">
         <Background backgroundImg={backgroundImg} isSelected={isSelected} />
@@ -215,7 +227,12 @@ function App() {
     );
   } else {
     return (
-      <div className="relative top-0 left-0 h-screen w-screen bg-black"></div>
+      <div className="relative top-0 left-0 grid grid-rows-3 grid-cols-4 h-screen w-screen bg-black z-[-20]">
+        <h1 className="relative flex justify-center text-center row-start-2 row-end-3 col-start-2 col-end-4 z-[-10] text-white text-2xl font-medium">
+          FORMULA 1 IMAGES LOADING...
+        </h1>
+        <Background backgroundImg={backgroundImg} isSelected={isSelected} />
+      </div>
     );
   }
 }
