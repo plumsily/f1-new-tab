@@ -33,7 +33,13 @@ const Name = ({
   }
   return (
     <div className="flex flex-col justify-self-center self-start items-center row-start-2 row-end-3 col-start-1 col-end-5 pt-12">
-      <CSSTransition in={isSelected} timeout={800} classNames="name" appear>
+      <CSSTransition
+        in={isSelected}
+        timeout={800}
+        classNames="name"
+        appear
+        unmountOnExit
+      >
         <div className="text flex flex-col justify-self-center self-center items-center z-20 mb-16 uppercase font-bold drop-shadow-[0_0_100px_rgba(0,0,0,0.6)]">
           {nextRace}
           <h1 className="w-max text-white sm:text-5xl sm:mb-4 xl:mb-8 xl:text-6xl">

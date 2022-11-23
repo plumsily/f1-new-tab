@@ -24,6 +24,7 @@ function App() {
   const [visibility, setVisibility] = useState("visible");
   const [raceWeekTitle, setRaceWeekTitle] = useState(false);
   const [shuffle, setShuffle] = useState(false);
+  const [error, setError] = useState(false);
 
   //Initial fetch for the F1 2022 Schedule.
   const updateSchedule = async () => {
@@ -51,11 +52,14 @@ function App() {
           )[0]
         );
       }
+      setError(false);
+      setIsSelected(false);
       setRoundChange(true);
       setTotalRound(tempTotalRound);
       setSchedule(result);
     } catch (error) {
       console.log(error);
+      setError(true);
       setSchedule({ content: "Something went wrong" });
       let fallbackIndex = Math.floor(Math.random() * circuitList.length);
       setTrackListImgs(circuitList[fallbackIndex]);
@@ -225,7 +229,7 @@ function App() {
         />
       </div>
     );
-  } else {
+  } else if (error) {
     return (
       <div className="relative top-0 left-0 grid grid-rows-3 grid-cols-4 h-screen w-screen bg-black z-[-20]">
         <h1 className="relative flex justify-center text-center row-start-2 row-end-3 col-start-2 col-end-4 z-[-10] text-white text-2xl font-medium">

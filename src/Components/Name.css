@@ -12,4 +12,5 @@
 }
 .name-exit-active {
     opacity: 0;
+    transition: all 0ms ease-in-out;
 }
