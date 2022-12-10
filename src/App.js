@@ -20,7 +20,7 @@ function App() {
   const [totalRound, setTotalRound] = useState(0);
   const [currentRound, setCurrentRound] = useState(0);
   const [roundChange, setRoundChange] = useState(false);
-  const [isSelected, setIsSelected] = useState(true);
+  const [isSelected, setIsSelected] = useState(false);
   const [visibility, setVisibility] = useState("visible");
   const [raceWeekTitle, setRaceWeekTitle] = useState(false);
   const [shuffle, setShuffle] = useState(false);
@@ -30,7 +30,9 @@ function App() {
   //Initial fetch for the F1 2022 Schedule.
   const updateSchedule = async () => {
     try {
-      const response = await fetch("https://ergast.com/api/f1/current.json");
+      const response = await fetch("https://ergast.com/api/f1/current.json", {
+        mode: "no-cors",
+      });
       const result = await response.json();
       let tempSchedule = result;
       let tempTotalRound = tempSchedule.MRData?.total;
@@ -60,11 +62,17 @@ function App() {
       setSchedule(result);
     } catch (error) {
       console.log(error);
+      setIsSelected(false);
       setError(true);
       setSchedule({ content: "Something went wrong" });
       let fallbackIndex = Math.floor(Math.random() * circuitList.length);
       setTrackListImgs(circuitList[fallbackIndex]);
-      setIsSelected(true);
+      const ranIndex = Math.floor(
+        Math.random() * circuitList[fallbackIndex]?.img.length
+      );
+      setBackgroundImg(circuitList[fallbackIndex]?.img[ranIndex]);
+      setRender(false);
+      // setIsSelected(true);
       // const timer = setTimeout(() => {
       //   setIsSelected(true);
       // }, 200);
@@ -276,7 +284,7 @@ function App() {
         <h1 className="relative flex justify-center text-center row-start-2 row-end-3 col-start-2 col-end-4 z-[-10] text-white text-2xl font-medium">
           IMAGES LOADING...
         </h1>
-        <Background backgroundImg={backgroundImg} isSelected={isSelected} />
+        <Background backgroundImg={backgroundImg} isSelected={true} />
       </div>
     );
   } else {
