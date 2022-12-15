@@ -9,7 +9,7 @@ const Background = ({ backgroundImg, isSelected }) => {
   return (
     <CSSTransition
       in={isSelected}
-      timeout={500}
+      timeout={400}
       classNames="background"
       appear
       unmountOnExit

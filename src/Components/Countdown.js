@@ -16,10 +16,18 @@ const Countdown = ({ raceTime, isSelected, visibility }) => {
     return () => clearInterval(int);
   });
   return (
-    <CSSTransition in={isSelected} timeout={2500} classNames="countDown" appear>
+    <CSSTransition
+      in={isSelected}
+      timeout={2500}
+      classNames="countDown"
+      appear
+      unmountOnExit
+    >
       <div className="flex flex-col justify-self-center self-center items-center z-20">
         <div
-          className={`${visibility} text-white font-semibold uppercase drop-shadow-[0_0_10px_rgba(0,0,0,1)] sm:text-4xl xl:text-5xl`}
+          className={`${
+            visibility == "visible" ? visibility : "hidden"
+          } text-white font-semibold uppercase drop-shadow-[0_0_10px_rgba(0,0,0,1)] sm:text-4xl xl:text-5xl`}
         >
           {realTime
             ? moment
