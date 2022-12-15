@@ -4,8 +4,8 @@ import { CSSTransition } from "react-transition-group";
 import "./Background.css";
 
 const Background = ({ backgroundImg, isSelected }) => {
-  const img = new Image();
-  img.src = backgroundImg;
+  // const img = new Image();
+  // img.src = backgroundImg;
   return (
     <CSSTransition
       in={isSelected}

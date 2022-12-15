@@ -25,6 +25,7 @@ function App() {
   const [raceWeekTitle, setRaceWeekTitle] = useState(false);
   const [shuffle, setShuffle] = useState(false);
   const [error, setError] = useState(false);
+  const [render, setRender] = useState(false);
 
   //Initial fetch for the F1 2022 Schedule.
   const updateSchedule = async () => {
@@ -134,23 +135,26 @@ function App() {
     let tempTrackListImgs = circuitList.filter(
       (circuits) => currentRace?.Circuit?.circuitId === circuits.id
     );
+    const img = new Image();
     if (tempTrackListImgs.length) {
       const ranIndex = Math.floor(
         Math.random() * tempTrackListImgs[0]?.img.length
       );
       setBackgroundImg(tempTrackListImgs[0]?.img[ranIndex]);
+      img.src = tempTrackListImgs[0]?.img[ranIndex];
     } else if (tempTrackListImgs.img) {
       const ranIndex = Math.floor(
         Math.random() * tempTrackListImgs?.img.length
       );
       setBackgroundImg(tempTrackListImgs?.img[ranIndex]);
+      img.src = tempTrackListImgs?.img[ranIndex];
     }
-
     setTrackListImgs(
       circuitList.filter(
         (circuits) => currentRace?.Circuit?.circuitId === circuits.id
       )
     );
+    setRender(true);
   }, [currentRace]);
   //toggling to show countdown and schedule for passed races
   useEffect(() => {
@@ -173,15 +177,15 @@ function App() {
     }
   }, [raceTime]);
   //Sets random index to shuffle background images.
-  useEffect(() => {
-    if (trackListImgs.length) {
-      const ranIndex = Math.floor(Math.random() * trackListImgs[0]?.img.length);
-      setBackgroundImg(trackListImgs[0]?.img[ranIndex]);
-    } else if (trackListImgs.img) {
-      const ranIndex = Math.floor(Math.random() * trackListImgs?.img.length);
-      setBackgroundImg(trackListImgs?.img[ranIndex]);
-    }
-  }, [trackListImgs]);
+  // useEffect(() => {
+  //   if (trackListImgs.length) {
+  //     const ranIndex = Math.floor(Math.random() * trackListImgs[0]?.img.length);
+  //     setBackgroundImg(trackListImgs[0]?.img[ranIndex]);
+  //   } else if (trackListImgs.img) {
+  //     const ranIndex = Math.floor(Math.random() * trackListImgs?.img.length);
+  //     setBackgroundImg(trackListImgs?.img[ranIndex]);
+  //   }
+  // }, [trackListImgs]);
   //Updates current race info data when user clicks on the selected round.
   const handleClick = async (round) => {
     setIsSelected(false);
@@ -238,7 +242,7 @@ function App() {
     return () => clearTimeout(timer3);
   }, [backgroundImg]);
 
-  if (backgroundImg && currentRace && previousRecord && raceTime) {
+  if (render) {
     return (
       <div className="relative top-0 left-0 grid grid-rows-3 grid-cols-4 h-screen w-screen bg-black">
         <Background backgroundImg={backgroundImg} isSelected={isSelected} />
@@ -270,11 +274,17 @@ function App() {
     return (
       <div className="relative top-0 left-0 grid grid-rows-3 grid-cols-4 h-screen w-screen bg-black z-[-20]">
         <h1 className="relative flex justify-center text-center row-start-2 row-end-3 col-start-2 col-end-4 z-[-10] text-white text-2xl font-medium">
-          FORMULA 1 IMAGES LOADING...
+          IMAGES LOADING...
         </h1>
         <Background backgroundImg={backgroundImg} isSelected={isSelected} />
       </div>
     );
+  } else {
+    <div className="relative top-0 left-0 grid grid-rows-3 grid-cols-4 h-screen w-screen bg-black z-[-20]">
+      <h1 className="relative flex justify-center text-center row-start-2 row-end-3 col-start-2 col-end-4 z-[-10] text-white text-2xl font-medium">
+        IMAGES LOADING...
+      </h1>
+    </div>;
   }
 }
 
