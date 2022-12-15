@@ -54,33 +54,33 @@ const History = ({
         </div>
       );
     } else {
-      if (i + 1 == currentRound) {
-        rounds.push(
-          <div
-            onClick={(event) => handleClick(i)}
-            key={i}
-            className="group flex flex-col h-max w-2 justify-center items-center drop-shadow-[0_0_8px_rgba(0,0,0,0.4)]"
-          >
-            <span className="mb-1.5 opacity-0 group-hover:opacity-100 text-red-500 font-bold transition-all ">
-              {i + 1}
-            </span>
-            <div className="w-2 h-6 rounded bg-lime-400/60 group-hover:bg-red-500 group-hover:scale-125   transition-all cursor-pointer backdrop-blur-lg"></div>
-          </div>
-        );
-      } else {
-        rounds.push(
-          <div
-            onClick={(event) => handleClick(i)}
-            key={i}
-            className="group flex flex-col h-max w-2 justify-center items-center drop-shadow-[0_0_8px_rgba(0,0,0,0.4)]"
-          >
-            <span className="mb-1.5 opacity-0 group-hover:opacity-100 text-red-500 font-bold transition-all ">
-              {i + 1}
-            </span>
-            <div className="w-2 h-6 rounded bg-white/40 group-hover:bg-red-500 group-hover:scale-125 transition-all cursor-pointer backdrop-blur-lg"></div>
-          </div>
-        );
-      }
+      // if (i + 1 == currentRound) {
+      //   rounds.push(
+      //     <div
+      //       onClick={(event) => handleClick(i)}
+      //       key={i}
+      //       className="group flex flex-col h-max w-2 justify-center items-center drop-shadow-[0_0_8px_rgba(0,0,0,0.4)]"
+      //     >
+      //       <span className="mb-1.5 opacity-0 group-hover:opacity-100 text-red-500 font-bold transition-all ">
+      //         {i + 1}
+      //       </span>
+      //       <div className="w-2 h-6 rounded bg-lime-400/60 group-hover:bg-red-500 group-hover:scale-125   transition-all cursor-pointer backdrop-blur-lg"></div>
+      //     </div>
+      //   );
+      // } else {
+      rounds.push(
+        <div
+          onClick={(event) => handleClick(i)}
+          key={i}
+          className="group flex flex-col h-max w-2 justify-center items-center drop-shadow-[0_0_8px_rgba(0,0,0,0.4)]"
+        >
+          <span className="mb-1.5 opacity-0 group-hover:opacity-100 text-red-500 font-bold transition-all ">
+            {i + 1}
+          </span>
+          <div className="w-2 h-6 rounded bg-white/40 group-hover:bg-red-500 group-hover:scale-125 transition-all cursor-pointer backdrop-blur-lg"></div>
+        </div>
+      );
+      // }
     }
   }
   rounds.push(

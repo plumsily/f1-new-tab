@@ -79,7 +79,7 @@ function App() {
       const result = await response.json();
       setPreviousRecord(result);
       if (shuffle) {
-        // setCurrentRound(currentRace?.round);
+        setCurrentRound(currentRace?.round);
       }
       //parse all info here
     } catch (error) {
@@ -206,15 +206,37 @@ function App() {
       shuffleIndex = Math.floor(Math.random() * parseInt(totalRound));
     }
     if (tempSchedule) {
+      let tempCurrentRace = tempSchedule.MRData?.RaceTable?.Races[shuffleIndex];
+      let tempTrackListImgs = circuitList.filter(
+        (circuits) => tempCurrentRace?.Circuit?.circuitId === circuits.id
+      );
+      if (tempTrackListImgs.length) {
+        const ranIndex = Math.floor(
+          Math.random() * tempTrackListImgs[0]?.img.length
+        );
+        setBackgroundImg(tempTrackListImgs[0]?.img[ranIndex]);
+      } else if (tempTrackListImgs.img) {
+        const ranIndex = Math.floor(
+          Math.random() * tempTrackListImgs?.img.length
+        );
+        setBackgroundImg(tempTrackListImgs?.img[ranIndex]);
+      }
       setCurrentRace(tempSchedule.MRData?.RaceTable?.Races[shuffleIndex]);
     } else {
       setCurrentRace(schedule.MRData?.RaceTable?.Races[shuffleIndex]);
     }
+    // const timer3 = setTimeout(() => {
+    //   setIsSelected(true);
+    // }, 200);
+    // return () => clearTimeout(timer3);
+  };
+
+  useEffect(() => {
     const timer3 = setTimeout(() => {
       setIsSelected(true);
     }, 200);
     return () => clearTimeout(timer3);
-  };
+  }, [backgroundImg]);
 
   if (backgroundImg && currentRace && previousRecord && raceTime) {
     return (
