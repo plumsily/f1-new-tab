@@ -79,7 +79,7 @@ function App() {
       const result = await response.json();
       setPreviousRecord(result);
       if (shuffle) {
-        setCurrentRound(currentRace?.round);
+        // setCurrentRound(currentRace?.round);
       }
       //parse all info here
     } catch (error) {
@@ -131,6 +131,21 @@ function App() {
         .format("YYYY-MM-DD, HH:mm:ss")
     );
     //current race's background images
+    let tempTrackListImgs = circuitList.filter(
+      (circuits) => currentRace?.Circuit?.circuitId === circuits.id
+    );
+    if (tempTrackListImgs.length) {
+      const ranIndex = Math.floor(
+        Math.random() * tempTrackListImgs[0]?.img.length
+      );
+      setBackgroundImg(tempTrackListImgs[0]?.img[ranIndex]);
+    } else if (tempTrackListImgs.img) {
+      const ranIndex = Math.floor(
+        Math.random() * tempTrackListImgs?.img.length
+      );
+      setBackgroundImg(tempTrackListImgs?.img[ranIndex]);
+    }
+
     setTrackListImgs(
       circuitList.filter(
         (circuits) => currentRace?.Circuit?.circuitId === circuits.id
@@ -201,7 +216,7 @@ function App() {
     return () => clearTimeout(timer3);
   };
 
-  if (trackListImgs.length && currentRace && previousRecord && raceTime) {
+  if (backgroundImg && currentRace && previousRecord && raceTime) {
     return (
       <div className="relative top-0 left-0 grid grid-rows-3 grid-cols-4 h-screen w-screen bg-black">
         <Background backgroundImg={backgroundImg} isSelected={isSelected} />

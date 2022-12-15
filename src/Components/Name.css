@@ -5,7 +5,7 @@
 .name-enter-active, .name-appear-active {
     opacity: 1;
     scale: 1;
-    transition: all 800ms ease-in-out;
+    transition: all 1000ms ease-in-out 1200ms;
 }
 .name-exit {
     opacity: 1;

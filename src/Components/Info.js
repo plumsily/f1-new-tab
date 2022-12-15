@@ -7,7 +7,7 @@ const Info = ({ currentRace, previousRecord, isSelected, visibility }) => {
   return (
     <CSSTransition
       in={isSelected}
-      timeout={1500}
+      timeout={2200}
       classNames="info"
       appear
       unmountOnExit

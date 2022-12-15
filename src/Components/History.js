@@ -90,7 +90,7 @@ const History = ({
   );
   return (
     <div className="flex flex-col justify-self-center self-end items-center row-start-3 row-end-4 col-start-2 col-end-4 pt-2 pb-8 w-1/2">
-      <CSSTransition in={true} timeout={1000} classNames="history" appear>
+      <CSSTransition in={true} timeout={2200} classNames="history" appear>
         <div className="flex flex-row w-full justify-self-center self-center items-center justify-between z-20">
           {rounds}
         </div>

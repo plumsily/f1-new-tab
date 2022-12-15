@@ -5,7 +5,7 @@
 .history-enter-active, .history-appear-active {
     opacity: 1;
     scale: 1;
-    transition: all 1000ms ease-in-out;
+    transition: all 1000ms ease-in-out 1200ms;
 }
 .history-exit {
     opacity: 1;

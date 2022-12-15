@@ -9,14 +9,17 @@ const Background = ({ backgroundImg, isSelected }) => {
   return (
     <CSSTransition
       in={isSelected}
-      timeout={1300}
+      timeout={700}
       classNames="background"
       appear
       unmountOnExit
     >
       <div className="relative flex justify-center row-start-1 row-end-4 col-start-1 col-end-5 z-0">
-        <img className="w-full object-cover" src={backgroundImg}></img>
-        <div className="absolute h-screen w-screen top-0 left-0 bg-gradient-radial from-transparent  to-black/70 "></div>
+        <img
+          className="w-full object-cover object-bottom"
+          src={backgroundImg}
+        ></img>
+        <div className="absolute h-screen w-screen top-0 left-0 bg-gradient-to-b from-transparent via-transparent to-black/70 "></div>
       </div>
     </CSSTransition>
   );
