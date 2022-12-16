@@ -242,7 +242,7 @@ function App() {
     return () => clearTimeout(timer3);
   }, [backgroundImg]);
 
-  if (render) {
+  if (render && backgroundImg && currentRace && previousRecord && raceTime) {
     return (
       <div className="relative top-0 left-0 grid grid-rows-3 grid-cols-4 h-screen w-screen bg-black">
         <Background backgroundImg={backgroundImg} isSelected={isSelected} />
