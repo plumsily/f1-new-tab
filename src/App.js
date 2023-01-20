@@ -30,9 +30,7 @@ function App() {
   //Initial fetch for the F1 2022 Schedule.
   const updateSchedule = async () => {
     try {
-      const response = await fetch("https://ergast.com/api/f1/current.json", {
-        mode: "no-cors",
-      });
+      const response = await fetch("https://ergast.com/api/f1/current.json");
       const result = await response.json();
       let tempSchedule = result;
       let tempTotalRound = tempSchedule.MRData?.total;
