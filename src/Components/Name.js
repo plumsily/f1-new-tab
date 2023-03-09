@@ -21,7 +21,7 @@ const Name = ({
       </h1>
     );
   } else {
-    if (visibility == "visible") {
+    if (visibility === "visible") {
       nextRace.push(
         <h1
           className={`${visibility} text w-max text-white z-10 sm:text-lg sm:mb-3 xl:mb-7 xl:text-xl`}
@@ -41,6 +41,13 @@ const Name = ({
         unmountOnExit
       >
         <div className="text flex flex-col justify-self-center self-center items-center z-20 mb-16 uppercase font-bold drop-shadow-[0_0_100px_rgba(0,0,0,0)]">
+          <div className="-translate-y-10">
+            <Countdown
+              raceTime={raceTime}
+              visibility={visibility}
+              isSelected={isSelected}
+            />
+          </div>
           {nextRace}
           <h1 className="w-max text-white sm:text-4xl sm:mb-2 xl:mb-6 xl:text-5xl drop-shadow-[0_0_1px_rgba(163,230,53,0.5)]">
             {currentRace?.raceName}
@@ -53,13 +60,6 @@ const Name = ({
           </h3>
         </div>
       </CSSTransition>
-      <div className="">
-        <Countdown
-          raceTime={raceTime}
-          visibility={visibility}
-          isSelected={isSelected}
-        />
-      </div>
     </div>
   );
 };
